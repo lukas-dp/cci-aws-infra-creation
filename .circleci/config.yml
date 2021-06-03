@@ -78,4 +78,4 @@ workflows:
       # - smoke_test
       - smoke_test_aws:
           requires:
-            - configure_infrastructure
+            - create_infrastructure
