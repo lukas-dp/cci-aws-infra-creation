@@ -12,14 +12,27 @@ jobs:
           command: |
             aws cloudformation deploy --template-file template.yml --stack-name my-stack
 
-      # - run: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      # - run: aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      # - run: aws configure set region $AWS_DEFAULT_REGION
-      # - run: aws ec2 run-instances --cli-input-yaml file://template.yml # https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-skeleton.html
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["07:ad:65:b2:6f:68:7a:b6:49:63:2c:14:76:15:12:69"]
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt playbook.yml
 
 
 # Orchestrate or schedule a set of jobs
 workflows:
   infrastructure_creation:
     jobs:
-      - create_infrastructure
+      # - create_infrastructure
+      - configure_infrastructure
+      
