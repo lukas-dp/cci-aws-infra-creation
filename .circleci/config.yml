@@ -26,13 +26,29 @@ jobs:
       - run:
           name: Configure server
           command: |
-            apk add --no-cache openssh-client && ssh-keyscan 3.143.116.91 > ~/.ssh/known_hosts                                          
+            apk add --no-cache openssh-client && ssh-keyscan 3.143.116.91 > ~/.ssh/known_hosts
             ansible-playbook -i inventory.txt playbook.yml
-          # ssh-keyscan -H 3.143.116.91 >> ~/.ssh/known_hosts
+          # https://circleci.com/docs/2.0/gh-bb-integration/#establishing-the-authenticity-of-an-ssh-host
+
+    smoke_test:
+      docker:
+        - image: alpine:latest
+      steps:
+        - checkout
+        - run:
+          name: Check if website responds
+          command: |
+            if curl -s --head "https://google.com"
+            then
+              echo "It worked!"
+            else
+             echo "It failed."
+            fi
 
 # Orchestrate or schedule a set of jobs
 workflows:
   infrastructure_creation:
     jobs:
       # - create_infrastructure
-      - configure_infrastructure
+      # - configure_infrastructure
+      - smoke_test
