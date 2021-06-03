@@ -26,7 +26,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt playbook.yml
+            ansible-playbook -i inventory.txt playbook.yml --ssh-extra-args='-o StrictHostKeyChecking=no'
 
 
 # Orchestrate or schedule a set of jobs
@@ -35,4 +35,3 @@ workflows:
     jobs:
       # - create_infrastructure
       - configure_infrastructure
-      
