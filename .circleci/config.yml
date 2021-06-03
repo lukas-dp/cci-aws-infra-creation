@@ -5,9 +5,9 @@ commands:
   destroy_environment:
     steps:
       - run:
-        name: Destroy environment
-        command: |
-          aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID}
+          name: Destroy environment
+          command: |
+            aws cloudformation delete-stack --stack-name prod-${CIRCLE_WORKFLOW_ID}
 
 jobs:
   create_infrastructure:
@@ -65,7 +65,7 @@ jobs:
           command: |
             return 1
       - destroy_environment
-          when: on_fail
+        when: on_fail
 
 
 # Orchestrate or schedule a set of jobs
