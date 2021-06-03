@@ -7,16 +7,19 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      - run: aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - run: aws configure set region $AWS_DEFAULT_REGION
-      - run: aws ec2 run-instances --cli-input-yaml file://template.yml # https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-skeleton.html
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy --template-file template.yml --stack-name my-stack
+
+      # - run: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      # - run: aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      # - run: aws configure set region $AWS_DEFAULT_REGION
+      # - run: aws ec2 run-instances --cli-input-yaml file://template.yml # https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-skeleton.html
 
 
 # Orchestrate or schedule a set of jobs
 workflows:
-  # Name the workflow "welcome"
   infrastructure_creation:
-    # Run the welcome/run job in its own container
     jobs:
       - create_infrastructure
