@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Check if website responds
           command: |
-            URL="https://google1992.com/"
+            URL="http://3.143.116.91:3000"
             if curl -s --head ${URL}
             then
               return 0
