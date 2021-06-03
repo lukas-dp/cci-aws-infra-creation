@@ -10,7 +10,7 @@ jobs:
       - run: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - run: aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - run: aws configure set region $AWS_DEFAULT_REGION
-      - run: aws ec2 run-instances --cli-input-yaml file://template.yaml # https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-skeleton.html
+      - run: aws ec2 run-instances --cli-input-yaml file://template.yml # https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-skeleton.html
 
 
 # Orchestrate or schedule a set of jobs
