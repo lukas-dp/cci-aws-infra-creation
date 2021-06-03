@@ -36,14 +36,14 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Check if website responds
-        command: |
-          if curl -s --head "https://google.com"
-          then
-            echo "It worked!"
-          else
-           echo "It failed."
-          fi
+          name: Check if website responds
+          command: |
+            if curl -s --head "https://google.com"
+            then
+              echo "It worked!"
+            else
+             echo "It failed."
+            fi
 
 # Orchestrate or schedule a set of jobs
 workflows:
