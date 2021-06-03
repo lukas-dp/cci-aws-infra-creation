@@ -30,20 +30,20 @@ jobs:
             ansible-playbook -i inventory.txt playbook.yml
           # https://circleci.com/docs/2.0/gh-bb-integration/#establishing-the-authenticity-of-an-ssh-host
 
-    smoke_test:
-      docker:
-        - image: alpine:latest
-      steps:
-        - checkout
-        - run:
-          name: Check if website responds
-          command: |
-            if curl -s --head "https://google.com"
-            then
-              echo "It worked!"
-            else
-             echo "It failed."
-            fi
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - checkout
+      - run:
+        name: Check if website responds
+        command: |
+          if curl -s --head "https://google.com"
+          then
+            echo "It worked!"
+          else
+           echo "It failed."
+          fi
 
 # Orchestrate or schedule a set of jobs
 workflows:
