@@ -26,7 +26,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ssh-keyscan 3.143.116.91 >> ~/.ssh/known_hosts
+            apk add --no-cache openssh-client && ssh-keyscan 3.143.116.91 > ~/.ssh/known_hosts                                          
             ansible-playbook -i inventory.txt playbook.yml
           # ssh-keyscan -H 3.143.116.91 >> ~/.ssh/known_hosts
 
