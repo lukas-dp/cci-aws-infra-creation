@@ -35,14 +35,16 @@ jobs:
       - image: alpine:latest
     steps:
       - checkout
+      - run: apk add --update curl
       - run:
           name: Check if website responds
           command: |
-            if curl -s --head "https://google.com"
+            URL= "https://google.com"
+            if curl -s --head ${URL}
             then
-              echo "It worked!"
+              return 0
             else
-             echo "It failed."
+              return 1
             fi
 
 # Orchestrate or schedule a set of jobs
